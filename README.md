@@ -87,6 +87,10 @@ version: '3.2'
 services:
   my-database:
     image: mysql:8.0.14
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root_password
       - MYSQL_USER=db_user
