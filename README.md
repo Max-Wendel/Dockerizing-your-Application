@@ -79,6 +79,40 @@ services:
       - my-database
 ```
 
+**MySql Example**
+
+```yml
+version: '3.2'
+
+services:
+  my-database:
+    image: mysql:8.0.14
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_USER=db_user
+      - MYSQL_PASSWORD=db_password
+      - MYSQL_DATABASE=db_name
+
+  my-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-app
+    restart: always
+    expose:
+      - 8080
+    ports:
+      - 8090:8080
+    dns: 8.8.8.8
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://my-database/db_name
+      - SPRING_DATASOURCE_USERNAME=db_user
+      - SPRING_DATASOURCE_PASSWORD=db_password
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=create-drop
+    depends_on:
+      - my-database
+```
+
 ## Run Yours Containers!
 - Run the command below:
 
